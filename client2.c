@@ -20,11 +20,11 @@ int main()
 
 	// 接続先の設定
 	server.sin_family = AF_INET;
-	server.sin_port = htons(12345);
+	server.sin_port = htons(65500);
 	
 	struct hostent *host;
-	host = gethostbyname("localhost");
-	//host = gethostbyname("ubuntu.server1");
+	//host = gethostbyname("localhost");
+	host = gethostbyname("ubuntu.server1");
 	if(host == NULL){
 		return 1;
 	}
@@ -33,14 +33,14 @@ int main()
 
 	printf("%s:%s\n", (char *)host->h_name, inet_ntoa(*(struct in_addr *)host->h_addr_list[0]));
 
-	/*
+	
 	// サーバに接続
 	connect(sock, (struct sockaddr *)&server, sizeof(server));
 
 	// データ受信
 	n = read(sock, buf, sizeof(buf));
 	printf("%d, %s\n", n, buf);
-	*/
+	
 	// 終了
 	close(sock);
 

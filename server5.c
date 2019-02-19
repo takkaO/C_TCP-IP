@@ -34,7 +34,7 @@ int main(){
 	"HELLO\r\n");
 
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(12345);
+	addr.sin_port = htons(65500);
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	if(bind(sock0, (struct sockaddr *)&addr, sizeof(addr)) != 0){
 		perror("bind");
@@ -46,7 +46,7 @@ int main(){
 		perror("listen");
 		return 1;
 	}
-
+	printf("Ready\n");
 	while(1){
 		// クライアントの要求受付
 		len = sizeof(client);
@@ -58,10 +58,10 @@ int main(){
 
 		printf("accept connection from %s, port=%d\n", inet_ntoa(client.sin_addr), ntohs(client.sin_port));
 
-		//memset(inbuf, 0, sizeof(inbuf));
-		//recv(sock, inbuf, sizeof(inbuf), 0);
+		memset(inbuf, 0, sizeof(inbuf));
+		recv(sock, inbuf, sizeof(inbuf), 0);
 		// 受信した情報をパースすべき
-		//printf("%s\n", inbuf);
+		printf("%s\n", inbuf);
 
 		send(sock, buf, (int)strlen(buf), 0);
 
